@@ -1,22 +1,45 @@
 <!DOCTYPE html>
+<!-- This is the main HTML file for the Professional Trade Journal. -->
+<!-- It defines the structure and layout of the web application. -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Professional Trade Journal</title>
+    <!-- Linking the external CSS file for styling the page -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Top ribbon displaying real-time market data: BTC/USD, ETH/USD, and Fear & Greed Index -->
+    <div class="top-ribbon">
+        <div class="ribbon-item">BTC/USD: <span id="btc-price">Loading...</span></div>
+        <div class="ribbon-item">ETH/USD: <span id="eth-price">Loading...</span></div>
+        <div class="ribbon-item">Fear & Greed Index: <span id="fear-greed">Loading...</span></div>
+    </div>
+
+    <!-- Bottom ribbon displaying market session status and countdown timers -->
+    <div class="bottom-ribbon">
+        <div class="ribbon-item">Sydney: <span id="sydney-status">Loading...</span> <span id="sydney-timer"></span></div>
+        <div class="ribbon-item">Tokyo: <span id="tokyo-status">Loading...</span> <span id="tokyo-timer"></span></div>
+        <div class="ribbon-item">London: <span id="london-status">Loading...</span> <span id="london-timer"></span></div>
+        <div class="ribbon-item">New York: <span id="newyork-status">Loading...</span> <span id="newyork-timer"></span></div>
+    </div>
+
     <div class="container">
+        <!-- Header section containing the title and the current date/time -->
         <header>
             <h1>Trade Journal</h1>
+            <!-- This div will be populated with the current date and time by JavaScript -->
             <div id="current-date" class="date-display"></div>
         </header>
 
+        <!-- Dashboard section for high-level statistics: Daily and Total PNL -->
         <section class="dashboard">
             <div class="stat-card">
                 <h3>Daily PNL</h3>
+                <!-- PNL amount in USD -->
                 <p id="daily-pnl-usd">$0.00</p>
+                <!-- PNL percentage relative to trade size -->
                 <p id="daily-pnl-pct">0.00%</p>
             </div>
             <div class="stat-card">
@@ -26,21 +49,26 @@
             </div>
         </section>
 
+        <!-- Form for manually entering new trade data -->
         <section class="trade-form-container">
             <h2>Add New Trade</h2>
             <form id="trade-form">
+                <!-- Date of the trade -->
                 <div class="form-group">
                     <label for="date">Date</label>
                     <input type="date" id="date" required>
                 </div>
+                <!-- Time of the trade -->
                 <div class="form-group">
                     <label for="time">Time</label>
                     <input type="time" id="time" required>
                 </div>
+                <!-- Trading pair (e.g., BTC/USD) -->
                 <div class="form-group">
                     <label for="symbol">Trade Pair Symbol</label>
                     <input type="text" id="symbol" placeholder="e.g. BTC/USDT" required>
                 </div>
+                <!-- Type of trade: Buy or Sell -->
                 <div class="form-group">
                     <label for="type">Trade Type</label>
                     <select id="type" required>
@@ -48,6 +76,7 @@
                         <option value="Sell">Sell</option>
                     </select>
                 </div>
+                <!-- Checkboxes for various trade confirmations -->
                 <div class="form-group">
                     <label>Confirmations</label>
                     <div class="checkbox-grid">
@@ -59,25 +88,31 @@
                         <label><input type="checkbox" name="confirmation" value="QM"> QM</label>
                     </div>
                 </div>
+                <!-- Total size of the trade in USD -->
                 <div class="form-group">
                     <label for="trade-size">Trade Size (USD)</label>
                     <input type="number" id="trade-size" step="0.01" required>
                 </div>
+                <!-- Profit or Loss amount in USD (positive or negative) -->
                 <div class="form-group">
                     <label for="pnl-amount">PNL Amount (USD, +/-)</label>
                     <input type="number" id="pnl-amount" step="0.01" required>
                 </div>
+                <!-- Submission button -->
                 <button type="submit" class="btn-primary">Record Trade</button>
             </form>
         </section>
 
+        <!-- Buttons for exporting data to CSV, importing from CSV, or clearing all data -->
         <section class="data-actions">
             <button id="export-csv" class="btn-secondary">Export to CSV</button>
             <label for="import-csv" class="btn-secondary">Import CSV</label>
+            <!-- Hidden file input for CSV import, triggered by the label above -->
             <input type="file" id="import-csv" accept=".csv" style="display: none;">
             <button id="clear-data" class="btn-danger">Clear All Data</button>
         </section>
 
+        <!-- Section displaying the history of all recorded trades in a table -->
         <section class="trade-history">
             <h2>Trade History</h2>
             <div class="table-responsive">
@@ -96,13 +131,22 @@
                             <th>Action</th>
                         </tr>
                     </thead>
+                    <!-- Table body where trade rows will be dynamically inserted by JavaScript -->
                     <tbody id="trade-body">
-                        <!-- Data will be inserted here -->
                     </tbody>
                 </table>
             </div>
         </section>
+
+        <!-- Section for Daily PNL Growth Chart -->
+        <section class="chart-container">
+            <h2>Daily PNL Growth</h2>
+            <canvas id="pnl-chart"></canvas>
+        </section>
     </div>
+    <!-- Chart.js library for rendering the PNL growth chart -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Linking the external JavaScript file for application logic -->
     <script src="script.js"></script>
 </body>
 </html>
