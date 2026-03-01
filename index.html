@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Trade Journal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Trade Journal</h1>
+            <div id="current-date" class="date-display"></div>
+        </header>
+
+        <section class="dashboard">
+            <div class="stat-card">
+                <h3>Daily PNL</h3>
+                <p id="daily-pnl-usd">$0.00</p>
+                <p id="daily-pnl-pct">0.00%</p>
+            </div>
+            <div class="stat-card">
+                <h3>Total PNL</h3>
+                <p id="total-pnl-usd">$0.00</p>
+                <p id="total-pnl-pct">0.00%</p>
+            </div>
+        </section>
+
+        <section class="trade-form-container">
+            <h2>Add New Trade</h2>
+            <form id="trade-form">
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    <input type="date" id="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="time">Time</label>
+                    <input type="time" id="time" required>
+                </div>
+                <div class="form-group">
+                    <label for="symbol">Trade Pair Symbol</label>
+                    <input type="text" id="symbol" placeholder="e.g. BTC/USDT" required>
+                </div>
+                <div class="form-group">
+                    <label for="type">Trade Type</label>
+                    <select id="type" required>
+                        <option value="Buy">Buy</option>
+                        <option value="Sell">Sell</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Confirmations</label>
+                    <div class="checkbox-grid">
+                        <label><input type="checkbox" name="confirmation" value="Regular divergence"> Regular divergence</label>
+                        <label><input type="checkbox" name="confirmation" value="Hidden divergence"> Hidden divergence</label>
+                        <label><input type="checkbox" name="confirmation" value="CRT level"> CRT level</label>
+                        <label><input type="checkbox" name="confirmation" value="Supply demand"> Supply demand</label>
+                        <label><input type="checkbox" name="confirmation" value="Volume level"> Volume level</label>
+                        <label><input type="checkbox" name="confirmation" value="QM"> QM</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="trade-size">Trade Size (USD)</label>
+                    <input type="number" id="trade-size" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="pnl-amount">PNL Amount (USD, +/-)</label>
+                    <input type="number" id="pnl-amount" step="0.01" required>
+                </div>
+                <button type="submit" class="btn-primary">Record Trade</button>
+            </form>
+        </section>
+
+        <section class="data-actions">
+            <button id="export-csv" class="btn-secondary">Export to CSV</button>
+            <label for="import-csv" class="btn-secondary">Import CSV</label>
+            <input type="file" id="import-csv" accept=".csv" style="display: none;">
+            <button id="clear-data" class="btn-danger">Clear All Data</button>
+        </section>
+
+        <section class="trade-history">
+            <h2>Trade History</h2>
+            <div class="table-responsive">
+                <table id="trade-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Symbol</th>
+                            <th>Type</th>
+                            <th>Confirmations</th>
+                            <th>Size (USD)</th>
+                            <th>PNL (USD)</th>
+                            <th>PNL (%)</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="trade-body">
+                        <!-- Data will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
